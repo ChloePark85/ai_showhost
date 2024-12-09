@@ -6,7 +6,7 @@ import { NadioLogo } from "@/components/logos";
 // import {ElevenLabsLogo, GithubLogo} from "@/components/logos";
 
 export const metadata: Metadata = {
-  title: "ConvAI",
+  title: "AI할머니상담사",
 };
 
 export default function RootLayout({
