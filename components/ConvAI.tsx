@@ -78,22 +78,22 @@ export function ConvAI() {
               <CardTitle className={"text-center text-red-800"}>
                 {isConnected
                   ? isSpeaking
-                    ? `할머니가 말씀하고 계세요`
-                    : "할머니가 듣고 계세요"
-                  : "할머니에게 고민을 상담해보세요!"}
+                    ? `손자가 말하고 있어요`
+                    : "손자가 듣고 있어요"
+                  : "손자와 이야기를 나눠보세요!"}
               </CardTitle>
             </CardHeader>
             <div className={"flex flex-col items-center gap-y-4 text-center"}>
               <div className="relative w-48 h-48 mx-auto mb-1">
                 <Image
-                  src="/grandma.png"
-                  alt="인자한 할머니"
+                  src="/boy.png"
+                  alt="손자"
                   fill
                   className="rounded-full object-cover"
                   priority
                 />
               </div>
-              <p className="text-red-800 font-medium mb-0">AI 할머니</p>
+              <p className="text-red-800 font-medium mb-0">AI 손자</p>
 
               <div
                 className={cn(
@@ -110,7 +110,7 @@ export function ConvAI() {
                 target="_blank"
                 className="text-red-800 hover:text-red-600 mb-4 text-sm underline"
               >
-                내 아바타가 나 대신 대화하도록 하고 싶다면? <br />
+                우리 어머니에게 손자 아바타를 만들어드리고 싶다면? <br />
                 나디오 보이스폰트 만들기
               </Link>
 
