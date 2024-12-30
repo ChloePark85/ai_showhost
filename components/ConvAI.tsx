@@ -80,7 +80,7 @@ export function ConvAI() {
                   ? isSpeaking
                     ? `할머니가 말씀하고 계세요`
                     : "할머니가 듣고 계세요"
-                  : "연결 대기중"}
+                  : "할머니에게 고민을 상담해보세요!"}
               </CardTitle>
             </CardHeader>
             <div className={"flex flex-col items-center gap-y-4 text-center"}>
@@ -110,7 +110,7 @@ export function ConvAI() {
                 target="_blank"
                 className="text-red-800 hover:text-red-600 mb-4 text-sm underline"
               >
-                내 아바타로 우리 아이와 대화하고 싶다면? <br />
+                내 아바타가 나 대신 대화하도록 하고 싶다면? <br />
                 나디오 보이스폰트 만들기
               </Link>
 
