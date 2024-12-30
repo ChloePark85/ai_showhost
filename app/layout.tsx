@@ -6,7 +6,7 @@
 // // import {ElevenLabsLogo, GithubLogo} from "@/components/logos";
 
 // export const metadata: Metadata = {
-//   title: "AI할머니상담사",
+//   title: "AI손자",
 // };
 
 // export default function RootLayout({
@@ -60,7 +60,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "AI할머니상담사",
+  title: "AI손자",
 };
 
 export default function RootLayout({
