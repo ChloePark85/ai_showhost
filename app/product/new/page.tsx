@@ -69,7 +69,7 @@ export default function Page() {
         <div className="w-full flex justify-center">
             <div className="container flex flex-col gap-4 px-4 px-0:md">
                 <div className="text-2xl font-bold py-8 ">
-                    Product Management System
+                    AI Show Host Generation system
                 </div>
 
 
