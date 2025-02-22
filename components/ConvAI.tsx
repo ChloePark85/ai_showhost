@@ -86,8 +86,8 @@ export function ConvAI() {
   };
 
   return (
-    <div className="fixed bottom-8 right-8 z-50">
-      <Card className="w-[300px] shadow-lg border-2 border-gray-100 rounded-2xl bg-white">
+    <div className="fixed bottom-8 right-12 z-50">
+      <Card className="w-[400px] shadow-lg border-2 border-gray-100 rounded-2xl bg-white">
         <CardContent className="p-4">
           <div className="relative w-full">
             <div className={"flex justify-center items-center gap-x-4"}>
@@ -156,9 +156,7 @@ export function ConvAI() {
 
           {isConnected && !error && (
             <div className="mt-3 text-xs text-center text-gray-500">
-              {isSpeaking
-                ? "AI 상담사가 답변하고 있습니다..."
-                : "듣고 있습니다..."}
+              {isSpeaking ? "AI showhost is responding..." : "Listening..."}
             </div>
           )}
         </CardContent>
