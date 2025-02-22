@@ -6,8 +6,8 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Conversation } from "@11labs/client";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
 
 async function requestMicrophonePermission() {
   try {
@@ -105,17 +105,27 @@ export function ConvAI() {
     <div className="fixed bottom-8 right-12 z-50">
       <Card className="w-[400px] shadow-lg border-2 border-gray-100 rounded-2xl bg-white">
         <CardContent className="p-4">
-          <div className="relative w-96 h-[681px] -mb-12">
-            <Image
-              src="/cosmetic_product.png"
-              alt="화장품"
-              width={384}
-              height={681}
-              className="rounded-lg object-contain"
-              priority
-            />
+          <div className="relative w-96 h-[681px]">
+            {isConnected ? (
+              <Image
+                src="/voice_chat.gif"
+                alt="Voice Chat Animation"
+                width={384}
+                height={681}
+                className="w-full h-full rounded-lg object-cover"
+              />
+            ) : (
+              <video
+                src="/sample_shorts.mp4"
+                className="w-full h-full rounded-lg object-cover"
+                controls
+                playsInline
+                loop
+              />
+            )}
           </div>
-          <div>
+
+          <div className="mt-4">
             <div className="flex justify-between items-start mb-1">
               <p className="text-xl font-bold leading-tight text-left flex-1 pr-4">
                 AESTURA Atobarrier365 Cream 80ml Double Set
@@ -129,13 +139,14 @@ export function ConvAI() {
 
           <div className="flex flex-col gap-2 mt-2">
             <div className="flex flex-row gap-2">
-              <Link
-                href="https://www.youtube.com/watch?v=your_video_id"
-                target="_blank"
+              <button
                 className="flex-1 py-2.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors text-base font-medium text-center"
+                onClick={() => {
+                  // 영상 재생/일시정지 로직 추가 가능
+                }}
               >
-                Watch video
-              </Link>
+                Play video
+              </button>
               <button
                 onClick={async () => {
                   setError(null);
