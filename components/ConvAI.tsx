@@ -130,7 +130,7 @@ export function ConvAI() {
               <p className="text-xl font-bold leading-tight text-left flex-1 pr-4">
                 AESTURA Atobarrier365 Cream 80ml Double Set
               </p>
-              <p className="text-xl font-bold whitespace-nowrap">$49.99</p>
+              <p className="text-xl font-bold whitespace-nowrap">$20.67</p>
             </div>
             <p className="text-lg text-gray-600 text-left">
               (+Cera-Hyal Moisture Ampoule 7ML+A-cica Serum 3ML)
@@ -147,19 +147,37 @@ export function ConvAI() {
               >
                 Play video
               </button>
-              <button
-                onClick={async () => {
-                  setError(null);
-                  if (isConnected) {
-                    await disconnect();
-                  } else {
-                    await connect();
-                  }
-                }}
-                className="flex-1 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-base font-medium"
-              >
-                {isConnected ? "Voice chatting..." : "Voice chatting"}
-              </button>
+              <div className="flex gap-4">
+                {!isConnected ? (
+                  <Button
+                    onClick={connect}
+                    className="flex gap-2 items-center bg-blue-500 hover:bg-blue-600 text-white h-10 px-8"
+                  >
+                    Chat
+                    <div className="flex gap-1 text-lg">
+                      <span role="img" aria-label="USA">
+                        🇺🇸
+                      </span>
+                      <span role="img" aria-label="China">
+                        🇨🇳
+                      </span>
+                      <span role="img" aria-label="Japan">
+                        🇯🇵
+                      </span>
+                      <span role="img" aria-label="Korea">
+                        🇰🇷
+                      </span>
+                    </div>
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={disconnect}
+                    className="bg-blue-500 hover:bg-blue-600 text-white h-10 px-8"
+                  >
+                    Stop
+                  </Button>
+                )}
+              </div>
             </div>
 
             <Link
