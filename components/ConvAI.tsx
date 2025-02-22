@@ -116,7 +116,7 @@ export function ConvAI() {
               />
             ) : (
               <video
-                src="/sample_shorts.mp4"
+                src="/short_english.mp4"
                 className="w-full h-full rounded-lg object-cover"
                 controls
                 playsInline
@@ -161,17 +161,7 @@ export function ConvAI() {
                 {isConnected ? "Voice chatting..." : "Voice chatting"}
               </button>
             </div>
-            <select
-              value={selectedLanguage}
-              onChange={(e) => setSelectedLanguage(e.target.value)}
-              className="w-full px-2 py-2 text-base border rounded-lg"
-              disabled={isConnected}
-            >
-              <option value="en">English (default)</option>
-              <option value="ko">Korean</option>
-              <option value="ja">Japanese</option>
-              <option value="zh">Chinese</option>
-            </select>
+
             <Link
               href="/checkout"
               className="w-full py-3.5 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-lg font-medium text-center mt-1"
