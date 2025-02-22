@@ -105,7 +105,7 @@ export function ConvAI() {
     <div className="fixed bottom-8 right-12 z-50">
       <Card className="w-[400px] shadow-lg border-2 border-gray-100 rounded-2xl bg-white">
         <CardContent className="p-4">
-          <div className="relative w-96 h-[681px]">
+          <div className="relative w-96 h-[681px] -mb-12">
             <Image
               src="/cosmetic_product.png"
               alt="화장품"
@@ -115,11 +115,14 @@ export function ConvAI() {
               priority
             />
           </div>
-          <div className="text-center">
-            <p className="text-lg font-bold leading-tight mb-1">
-              AESTURA Atobarrier365 Cream 80ml Double Set
-            </p>
-            <p className="text-base text-gray-600">
+          <div>
+            <div className="flex justify-between items-start mb-1">
+              <p className="text-xl font-bold leading-tight text-left flex-1 pr-4">
+                AESTURA Atobarrier365 Cream 80ml Double Set
+              </p>
+              <p className="text-xl font-bold whitespace-nowrap">$49.99</p>
+            </div>
+            <p className="text-lg text-gray-600 text-left">
               (+Cera-Hyal Moisture Ampoule 7ML+A-cica Serum 3ML)
             </p>
           </div>
@@ -129,7 +132,7 @@ export function ConvAI() {
               <Link
                 href="https://www.youtube.com/watch?v=your_video_id"
                 target="_blank"
-                className="flex-1 py-2.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors text-sm font-medium text-center"
+                className="flex-1 py-2.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors text-base font-medium text-center"
               >
                 Watch video
               </Link>
@@ -142,7 +145,7 @@ export function ConvAI() {
                     await connect();
                   }
                 }}
-                className="flex-1 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+                className="flex-1 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-base font-medium"
               >
                 {isConnected ? "Voice chatting..." : "Voice chatting"}
               </button>
@@ -150,7 +153,7 @@ export function ConvAI() {
             <select
               value={selectedLanguage}
               onChange={(e) => setSelectedLanguage(e.target.value)}
-              className="w-full px-2 py-1.5 text-sm border rounded-lg"
+              className="w-full px-2 py-2 text-base border rounded-lg"
               disabled={isConnected}
             >
               <option value="en">English (default)</option>
@@ -158,14 +161,22 @@ export function ConvAI() {
               <option value="ja">Japanese</option>
               <option value="zh">Chinese</option>
             </select>
+            <Link
+              href="/checkout"
+              className="w-full py-3.5 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-lg font-medium text-center mt-1"
+            >
+              Buy now
+            </Link>
           </div>
 
           {error && (
-            <div className="mt-2 text-sm text-red-600 text-center">{error}</div>
+            <div className="mt-2 text-base text-red-600 text-center">
+              {error}
+            </div>
           )}
 
           {isConnected && !error && (
-            <div className="mt-3 text-sm text-center text-gray-500">
+            <div className="mt-3 text-base text-center text-gray-500">
               {isSpeaking
                 ? "AI 상담사가 답변하고 있습니다..."
                 : "듣고 있습니다..."}
