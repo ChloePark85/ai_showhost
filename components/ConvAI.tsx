@@ -85,69 +85,65 @@ export function ConvAI() {
     }
   };
 
+  const disconnect = async () => {
+    try {
+      // 상태 초기화
+      setConversation(null);
+      setIsConnected(false);
+      setIsSpeaking(false);
+
+      // 페이지를 새로고침하여 모든 연결 강제 종료
+      window.location.reload();
+    } catch (error) {
+      console.error("Disconnection error:", error);
+      setError("Connection termination error");
+    }
+  };
+
   return (
     <div className="fixed bottom-8 right-12 z-50">
       <Card className="w-[400px] shadow-lg border-2 border-gray-100 rounded-2xl bg-white">
         <CardContent className="p-4">
-          <div className="relative w-full">
-            <div className={"flex justify-center items-center gap-x-4"}>
-              <Card className={"rounded-3xl bg-red-50"}>
-                <CardContent>
-                  <CardHeader>
-                    <CardTitle className={"text-center text-red-800"}>
-                      {isConnected
-                        ? isSpeaking
-                          ? `AI Showhost is talking`
-                          : "AI Showhost is listening"
-                        : "Ask AI Showhost!"}
-                    </CardTitle>
-                  </CardHeader>
-                  <div
-                    className={"flex flex-col items-center gap-y-4 text-center"}
-                  >
-                    <div className="relative w-96 h-[681px]">
-                      <Image
-                        src="/cosmetic_product.png"
-                        alt="화장품"
-                        width={384}
-                        height={681}
-                        className="rounded-lg object-contain"
-                        priority
-                      />
-                    </div>
-                    <div className="text-center">
-                      <p className="text-base font-bold leading-tight mb-1">
-                        AESTURA Atobarrier365 Cream 80ml Double Set
-                      </p>
-                      <p className="text-sm text-gray-600">
-                        (+Cera-Hyal Moisture Ampoule 7ML+A-cica Serum 3ML)
-                      </p>
-                    </div>
+          <div className="relative w-96 h-[681px]">
+            <Image
+              src="/cosmetic_product.png"
+              alt="화장품"
+              width={384}
+              height={681}
+              className="rounded-lg object-contain"
+              priority
+            />
+          </div>
+          <div className="text-center">
+            <p className="text-lg font-bold leading-tight mb-1">
+              AESTURA Atobarrier365 Cream 80ml Double Set
+            </p>
+            <p className="text-base text-gray-600">
+              (+Cera-Hyal Moisture Ampoule 7ML+A-cica Serum 3ML)
+            </p>
+          </div>
 
-                    <div className="flex gap-4 mb-4">
-                      <Link
-                        href="https://www.youtube.com/watch?v=your_video_id"
-                        target="_blank"
-                        className="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
-                      >
-                        Watch video
-                      </Link>
-                      <button
-                        onClick={async () => {
-                          setError(null);
-                          if (!isConnected) {
-                            await connect();
-                          }
-                        }}
-                        className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-                      >
-                        {isConnected ? "chatting..." : "Voice chatting"}
-                      </button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
+          <div className="flex flex-row gap-2 mt-2">
+            <Link
+              href="https://www.youtube.com/watch?v=your_video_id"
+              target="_blank"
+              className="flex-1 py-2.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors text-sm font-medium text-center"
+            >
+              Watch video
+            </Link>
+            <button
+              onClick={async () => {
+                setError(null);
+                if (isConnected) {
+                  await disconnect();
+                } else {
+                  await connect();
+                }
+              }}
+              className="flex-1 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+            >
+              {isConnected ? "Voice chatting..." : "Voice chatting"}
+            </button>
           </div>
 
           {error && (
@@ -155,8 +151,10 @@ export function ConvAI() {
           )}
 
           {isConnected && !error && (
-            <div className="mt-3 text-xs text-center text-gray-500">
-              {isSpeaking ? "AI showhost is responding..." : "Listening..."}
+            <div className="mt-3 text-sm text-center text-gray-500">
+              {isSpeaking
+                ? "AI 상담사가 답변하고 있습니다..."
+                : "듣고 있습니다..."}
             </div>
           )}
         </CardContent>
