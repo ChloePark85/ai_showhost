@@ -70,13 +70,10 @@ export default function RootLayout({
     <html lang="en" className="h-full w-full">
       <body className="antialiased w-full h-full flex flex-col bg-[#FDF9F3]">
         <div className="flex flex-col flex-grow w-full items-center justify-center relative">
-          <nav className="sm:fixed w-full top-0 left-0 grid grid-cols-2 py-4 px-8 z-10">
-            <div className="flex">{/* 로고 삭제 */}</div>
-
+          {/* <nav className="sm:fixed w-full top-0 left-0 grid grid-cols-2 py-4 px-8 z-10">
             <div className="flex gap-4 justify-end">
-              {/* 오른쪽 영역은 비워둡니다 */}
             </div>
-          </nav>
+          </nav> */}
           {children}
           <BackgroundWave />
         </div>

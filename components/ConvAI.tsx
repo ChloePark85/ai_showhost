@@ -102,58 +102,78 @@ export function ConvAI() {
   };
 
   return (
-    <div className="fixed bottom-8 right-12 z-50">
-      <Card className="w-[400px] shadow-lg border-2 border-gray-100 rounded-2xl bg-white">
+    <div className="fixed bottom-36 right-10 z-[2000]">
+      <Card className="w-[300px] shadow-lg border-2 border-gray-100 rounded-2xl bg-white">
         <CardContent className="p-4">
-          <div className="relative w-96 h-[681px]">
+          <div className="relative">
             {isConnected ? (
               <Image
                 src="/voice_chat.gif"
                 alt="Voice Chat Animation"
-                width={384}
-                height={681}
+                // width={384}
+                width={288}
+                // height={681}
+                height={511}
                 className="w-full h-full rounded-lg object-cover"
               />
             ) : (
               <video
-                src="/short_english.mp4"
-                className="w-full h-full rounded-lg object-cover"
+                key={selectedLanguage}
+                className="rounded-lg object-cover w-full"
                 controls
                 playsInline
                 loop
-              />
+              >
+                {selectedLanguage === "zh" ? (
+                  <source src="/shorts_chinese.mp4" type="video/mp4" />
+                ) : (
+                  <source src="/short_english.mp4" type="video/mp4" />
+                )}
+              </video>
             )}
+          </div>
+          <div>
+            <label className="form-control w-full max-w-xs">
+              <div className="label">
+                <span className="text-xs">Video Language</span>
+              </div>
+              <select
+                className="select select-bordered"
+                value={selectedLanguage}
+                onChange={(e) => setSelectedLanguage(e.target.value)}
+              >
+                <option value="en">🇺🇸 English</option>
+                <option value="zh">🇨🇳 中文</option>
+                <option value="ja">🇯🇵 日本語</option>
+                <option value="ko">🇰🇷 한국어</option>
+              </select>
+            </label>
           </div>
 
           <div className="mt-4">
             <div className="flex justify-between items-start mb-1">
-              <p className="text-xl font-bold leading-tight text-left flex-1 pr-4">
+              <p className="text-lg font-bold leading-tight text-left flex-1 pr-4">
                 AESTURA Atobarrier365 Cream 80ml Double Set
               </p>
-              <p className="text-xl font-bold whitespace-nowrap">$20.67</p>
+              <p className="text-lg font-bold whitespace-nowrap">$20.67</p>
             </div>
-            <p className="text-lg text-gray-600 text-left">
+            <p className="text-md text-gray-600 text-left">
               (+Cera-Hyal Moisture Ampoule 7ML+A-cica Serum 3ML)
             </p>
           </div>
 
           <div className="flex flex-col gap-2 mt-2">
-            <div className="flex flex-row gap-2">
-              <button
-                className="flex-1 py-2.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors text-base font-medium text-center"
-                onClick={() => {
-                  // 영상 재생/일시정지 로직 추가 가능
-                }}
-              >
-                Play video
-              </button>
+            {/* <div className="flex flex-col gap-2">
               <div className="flex gap-4">
                 {!isConnected ? (
                   <Button
                     onClick={connect}
-                    className="flex gap-2 items-center bg-blue-500 hover:bg-blue-600 text-white h-10 px-8"
+                    className="flex gap-2 w-full items-center  text-lg bg-blue-500 hover:bg-blue-600 text-white py-4"
                   >
-                    Chat
+                    <div>
+                      Chat
+                    </div>
+
                     <div className="flex gap-1 text-lg">
                       <span role="img" aria-label="USA">
                         🇺🇸
@@ -172,17 +192,18 @@ export function ConvAI() {
                 ) : (
                   <Button
                     onClick={disconnect}
-                    className="bg-blue-500 hover:bg-blue-600 text-white h-10 px-8"
+                    className="bg-blue-500 hover:bg-blue-600 text-white py-4 px-8"
                   >
                     Stop
                   </Button>
                 )}
               </div>
-            </div>
+            </div> */}
+            <div><elevenlabs-convai agent-id="Woon2GJoLI56xtb1PJKD"></elevenlabs-convai><script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script></div>
 
             <Link
               href="/checkout"
-              className="w-full py-3.5 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-lg font-medium text-center mt-1"
+              className="w-full py-4 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium text-center"
             >
               Buy now
             </Link>
