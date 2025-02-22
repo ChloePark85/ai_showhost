@@ -59,7 +59,7 @@ export default function Page() {
             router.push('/product/aestura')
         } catch (error) {
             console.log(error)
-        } finally {
+            alert('An error occurred during the registration')
             setRegLoading(false)
         }
     }
