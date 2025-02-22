@@ -19,127 +19,150 @@ async function requestMicrophonePermission() {
   }
 }
 
-async function getSignedUrl(): Promise<string> {
-  const response = await fetch("/api/signed-url");
-  if (!response.ok) {
-    throw Error("Failed to get signed url");
-  }
-  const data = await response.json();
-  return data.signedUrl;
-}
-
 export function ConvAI() {
   const [conversation, setConversation] = useState<Conversation | null>(null);
   const [isConnected, setIsConnected] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  async function startConversation() {
-    const hasPermission = await requestMicrophonePermission();
-    if (!hasPermission) {
-      alert("No permission");
-      return;
-    }
-    const signedUrl = await getSignedUrl();
-    const conversation = await Conversation.startSession({
-      signedUrl: signedUrl,
-      onConnect: () => {
-        setIsConnected(true);
-        setIsSpeaking(true);
-      },
-      onDisconnect: () => {
-        setIsConnected(false);
-        setIsSpeaking(false);
-      },
-      onError: (error) => {
-        console.log(error);
-        alert("An error occurred during the conversation");
-      },
-      onModeChange: ({ mode }) => {
-        setIsSpeaking(mode === "speaking");
-      },
-    });
-    setConversation(conversation);
-  }
+  const getSignedUrl = async () => {
+    try {
+      const response = await fetch("/api/signed-url");
+      console.log("Server response status:", response.status);
 
-  async function endConversation() {
-    if (!conversation) {
-      return;
+      const data = await response.json();
+      console.log("Server response data:", data);
+
+      if (!response.ok) {
+        console.error("API Error:", {
+          status: response.status,
+          statusText: response.statusText,
+          data: data,
+        });
+        throw new Error(data.error || `API Error: ${response.status}`);
+      }
+
+      if (!data.signedUrl) {
+        throw new Error("No signed URL in response");
+      }
+
+      return data.signedUrl;
+    } catch (error) {
+      console.error("Error getting signed URL:", error);
+      setError("연결에 실패했습니다. 잠시 후 다시 시도해주세요.");
+      return null;
     }
-    await conversation.endSession();
-    setConversation(null);
-  }
+  };
+
+  const connect = async () => {
+    try {
+      const signedUrl = await getSignedUrl();
+      if (!signedUrl) return;
+
+      const conv = await Conversation.startSession({
+        signedUrl: signedUrl,
+        onConnect: () => {
+          setIsConnected(true);
+          setIsSpeaking(true);
+        },
+        onDisconnect: () => {
+          setIsConnected(false);
+          setIsSpeaking(false);
+        },
+        onError: (error) => {
+          console.log(error);
+          alert("An error occurred during the conversation");
+        },
+        onModeChange: ({ mode }) => {
+          setIsSpeaking(mode === "speaking");
+        },
+      });
+      setConversation(conv);
+    } catch (error) {
+      console.error("Connection error:", error);
+      setError("연결에 실패했습니다. 잠시 후 다시 시도해주세요.");
+      setIsConnected(false);
+    }
+  };
 
   return (
-    <div className="relative w-full">
-      <div className={"flex justify-center items-center gap-x-4"}>
-        <Card className={"rounded-3xl bg-red-50"}>
-          <CardContent>
-            <CardHeader>
-              <CardTitle className={"text-center text-red-800"}>
-                {isConnected
-                  ? isSpeaking
-                    ? `손자가 말하고 있어요`
-                    : "손자가 듣고 있어요"
-                  : "손자와 이야기를 나눠보세요!"}
-              </CardTitle>
-            </CardHeader>
-            <div className={"flex flex-col items-center gap-y-4 text-center"}>
-              <div className="relative w-48 h-48 mx-auto mb-1">
-                <Image
-                  src="/boy.png"
-                  alt="손자"
-                  fill
-                  className="rounded-full object-cover"
-                  priority
-                />
-              </div>
-              <p className="text-red-800 font-medium mb-0">AI 손자</p>
+    <div className="fixed bottom-8 right-8 z-50">
+      <Card className="w-[300px] shadow-lg border-2 border-gray-100 rounded-2xl bg-white">
+        <CardContent className="p-4">
+          <div className="relative w-full">
+            <div className={"flex justify-center items-center gap-x-4"}>
+              <Card className={"rounded-3xl bg-red-50"}>
+                <CardContent>
+                  <CardHeader>
+                    <CardTitle className={"text-center text-red-800"}>
+                      {isConnected
+                        ? isSpeaking
+                          ? `AI Showhost is talking`
+                          : "AI Showhost is listening"
+                        : "Ask AI Showhost!"}
+                    </CardTitle>
+                  </CardHeader>
+                  <div
+                    className={"flex flex-col items-center gap-y-4 text-center"}
+                  >
+                    <div className="relative w-96 h-[681px]">
+                      <Image
+                        src="/cosmetic_product.png"
+                        alt="화장품"
+                        width={384}
+                        height={681}
+                        className="rounded-lg object-contain"
+                        priority
+                      />
+                    </div>
+                    <div className="text-center">
+                      <p className="text-base font-bold leading-tight mb-1">
+                        AESTURA Atobarrier365 Cream 80ml Double Set
+                      </p>
+                      <p className="text-sm text-gray-600">
+                        (+Cera-Hyal Moisture Ampoule 7ML+A-cica Serum 3ML)
+                      </p>
+                    </div>
 
-              <div
-                className={cn(
-                  "orb my-8 mx-12",
-                  isSpeaking
-                    ? "animate-orb"
-                    : conversation && "animate-orb-slow",
-                  isConnected ? "orb-active" : "orb-inactive"
-                )}
-              ></div>
-
-              <Link
-                href="https://www.nadio.io/fontmarket/?idx=70"
-                target="_blank"
-                className="text-red-800 hover:text-red-600 mb-4 text-sm underline"
-              >
-                우리 어머니에게 손자 아바타를 만들어드리고 싶다면? <br />
-                나디오 보이스폰트 만들기
-              </Link>
-
-              <Button
-                variant={"outline"}
-                className={
-                  "rounded-full text-red-800 border-red-800 hover:bg-red-100 font-bold"
-                }
-                size={"xl"}
-                disabled={conversation !== null && isConnected}
-                onClick={startConversation}
-              >
-                대화 시작하기
-              </Button>
-              <Button
-                variant={"outline"}
-                className={
-                  "rounded-full text-red-800 border-red-800 hover:bg-red-100 font-bold"
-                }
-                size={"xl"}
-                disabled={conversation === null && !isConnected}
-                onClick={endConversation}
-              >
-                대화 종료하기
-              </Button>
+                    <div className="flex gap-4 mb-4">
+                      <Link
+                        href="https://www.youtube.com/watch?v=your_video_id"
+                        target="_blank"
+                        className="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+                      >
+                        Watch video
+                      </Link>
+                      <button
+                        onClick={async () => {
+                          setError(null);
+                          if (!isConnected) {
+                            await connect();
+                          }
+                        }}
+                        className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                      >
+                        {isConnected ? "chatting..." : "Voice chatting"}
+                      </button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
-          </CardContent>
-        </Card>
-      </div>
+          </div>
+
+          {error && (
+            <div className="mt-2 text-sm text-red-600 text-center">{error}</div>
+          )}
+
+          {isConnected && !error && (
+            <div className="mt-3 text-xs text-center text-gray-500">
+              {isSpeaking
+                ? "AI 상담사가 답변하고 있습니다..."
+                : "듣고 있습니다..."}
+            </div>
+          )}
+        </CardContent>
+      </Card>
     </div>
   );
 }

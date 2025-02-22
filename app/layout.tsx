@@ -60,7 +60,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "AI손자",
+  title: "AI호스트",
 };
 
 export default function RootLayout({
@@ -71,20 +71,7 @@ export default function RootLayout({
       <body className="antialiased w-full h-full flex flex-col bg-[#FDF9F3]">
         <div className="flex flex-col flex-grow w-full items-center justify-center relative">
           <nav className="sm:fixed w-full top-0 left-0 grid grid-cols-2 py-4 px-8 z-10">
-            <div className="flex">
-              <Link
-                href="https://www.nadio.io/fontmarket/?idx=70"
-                target="_blank"
-              >
-                <Image
-                  src="/nadio_voicefont_logo.png"
-                  alt="나디오 보이스폰트"
-                  width={432}
-                  height={144}
-                  className="h-24 w-auto hover:opacity-80"
-                />
-              </Link>
-            </div>
+            <div className="flex">{/* 로고 삭제 */}</div>
 
             <div className="flex gap-4 justify-end">
               {/* 오른쪽 영역은 비워둡니다 */}

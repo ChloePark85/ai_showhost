@@ -78,26 +78,3 @@ export const GithubLogo = ({ className }: { className?: string }) => {
     </svg>
   );
 };
-export const NadioLogo = ({ className }: LogoProps) => {
-  return (
-    <svg
-      version="1.0"
-      xmlns="http://www.w3.org/2000/svg"
-      width="1772px"
-      height="1772px"
-      viewBox="0 0 1772 1772"
-      preserveAspectRatio="xMidYMid meet"
-      className={className}
-    >
-      <g fill="#ffffff">
-        <path d="M0 886 l0 -886 886 0 886 0 0 886 0 886 -886 0 -886 0 0 -886z m462.4 285 c49 -7.4 96.4 -27.6 135 -57.4..." />
-      </g>
-      <g fill="#b24d5a">
-        <path d="M391.5 1175.5 c-35.5 -4.1 -66.9 -13.4 -98.5 -29.1 -112.8 -56.2 -176.8 -178.6 -158.4 -303.2..." />
-      </g>
-      <g fill="#b1b0af">
-        <path d="M1092.7 1088.8 c-0.4 -12.8 -0.7 -52.4 -0.7 -88 0 -35.7 -0.2 -64.8 -0.4 -64.8..." />
-      </g>
-    </svg>
-  );
-};
