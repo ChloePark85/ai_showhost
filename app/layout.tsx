@@ -55,9 +55,7 @@
 // }
 import type { Metadata } from "next";
 import "./globals.css";
-import { BackgroundWave } from "@/components/background-wave";
-import Link from "next/link";
-import Image from "next/image";
+// import { BackgroundWave } from "@/components/background-wave";
 
 export const metadata: Metadata = {
   title: "AI호스트",
@@ -68,15 +66,15 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className="h-full w-full">
-      <body className="antialiased w-full h-full flex flex-col bg-[#FDF9F3]">
-        <div className="flex flex-col flex-grow w-full items-center justify-center relative">
-          {/* <nav className="sm:fixed w-full top-0 left-0 grid grid-cols-2 py-4 px-8 z-10">
+      <body className="antialiased w-full h-full flex flex-col">
+        {/* <div className="flex flex-col flex-grow w-full items-center justify-center relative"> */}
+        {/* <nav className="sm:fixed w-full top-0 left-0 grid grid-cols-2 py-4 px-8 z-10">
             <div className="flex gap-4 justify-end">
             </div>
           </nav> */}
-          {children}
-          <BackgroundWave />
-        </div>
+        {children}
+        {/* <BackgroundWave /> */}
+        {/* </div> */}
       </body>
     </html>
   );

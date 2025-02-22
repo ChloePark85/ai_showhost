@@ -1,7 +1,6 @@
 import { BackgroundWave } from "@/components/background-wave";
 import { ConvAI } from "@/components/ConvAI";
-
-export default function Home() {
+export default function Page() {
     return (
         <div className="flex flex-col flex-grow w-full items-center justify-center relative">
             <div
