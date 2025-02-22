@@ -4,6 +4,8 @@ import { useState } from "react";
 import { getInitialFormData, getProductDataFromUrl } from "@/lib/product/functions";
 import { ProductFormData } from "@/lib/product/types";
 import { useRouter } from "next/navigation";
+import ProfileImageSelector from "@/components/ui/ProfileSelector";
+import VoiceSelector from "@/components/ui/VoiceSelector";
 
 export default function Page() {
     const router = useRouter()
@@ -70,7 +72,11 @@ export default function Page() {
                     Product Management System
                 </div>
 
+
+
                 <form className="flex flex-col gap-8 mb-40" onSubmit={handleRegisterProduct}>
+                    <div className="divider"></div>
+                    <div className="text-xl font-bold">Product</div>
                     <div className="flex gap-4">
                         <label className="form-control w-full">
                             <div className="label">
@@ -270,7 +276,33 @@ export default function Page() {
                         </div>
 
                     </div>
-                    <input type="submit" className="btn my-12" disabled={regLoading} value={regLoading ? 'Registering...' : 'Register Product'} />
+                    <div className="divider"></div>
+                    <div className="flex flex-col gap-4">
+                        <div className="text-xl font-bold">AI Host</div>
+                        <div className="flex flex-col gap-4">
+                            <div className="text-lg font-bold">Profile Image</div>
+                            <ProfileImageSelector />
+                        </div>
+                        <div className="flex flex-col gap-4">
+                            <div className="text-lg font-bold">Voice</div>
+                            <VoiceSelector />
+                            {/* <div className="flex p-4 border rounded">
+                                <div role="tablist" className="tabs tabs-boxed flex flex-col w-60">
+                                    <a role="tab" className="tab w-full">Tab 1</a>
+                                    <a role="tab" className="tab tab-active w-full">Tab 2</a>
+                                    <a role="tab" className="tab w-full">Tab 3</a>
+                                </div>
+                                <div>
+                                    <div>
+                                        <div>voice Name</div>
+                                        <div>voice Description</div>
+                                    </div>
+                                </div>
+                            </div> */}
+                        </div>
+                    </div>
+
+                    <input type="submit" className="btn my-12" disabled={regLoading} value={regLoading ? 'Generating...' : 'Generate AI Host'} />
                 </form>
             </div>
         </div>
