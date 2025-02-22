@@ -24,6 +24,7 @@ export function ConvAI() {
   const [isConnected, setIsConnected] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [selectedLanguage, setSelectedLanguage] = useState("en");
 
   const getSignedUrl = async () => {
     try {
@@ -123,27 +124,40 @@ export function ConvAI() {
             </p>
           </div>
 
-          <div className="flex flex-row gap-2 mt-2">
-            <Link
-              href="https://www.youtube.com/watch?v=your_video_id"
-              target="_blank"
-              className="flex-1 py-2.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors text-sm font-medium text-center"
+          <div className="flex flex-col gap-2 mt-2">
+            <div className="flex flex-row gap-2">
+              <Link
+                href="https://www.youtube.com/watch?v=your_video_id"
+                target="_blank"
+                className="flex-1 py-2.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors text-sm font-medium text-center"
+              >
+                Watch video
+              </Link>
+              <button
+                onClick={async () => {
+                  setError(null);
+                  if (isConnected) {
+                    await disconnect();
+                  } else {
+                    await connect();
+                  }
+                }}
+                className="flex-1 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+              >
+                {isConnected ? "Voice chatting..." : "Voice chatting"}
+              </button>
+            </div>
+            <select
+              value={selectedLanguage}
+              onChange={(e) => setSelectedLanguage(e.target.value)}
+              className="w-full px-2 py-1.5 text-sm border rounded-lg"
+              disabled={isConnected}
             >
-              Watch video
-            </Link>
-            <button
-              onClick={async () => {
-                setError(null);
-                if (isConnected) {
-                  await disconnect();
-                } else {
-                  await connect();
-                }
-              }}
-              className="flex-1 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
-            >
-              {isConnected ? "Voice chatting..." : "Voice chatting"}
-            </button>
+              <option value="en">English (default)</option>
+              <option value="ko">Korean</option>
+              <option value="ja">Japanese</option>
+              <option value="zh">Chinese</option>
+            </select>
           </div>
 
           {error && (
